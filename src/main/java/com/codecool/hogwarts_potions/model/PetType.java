@@ -4,5 +4,6 @@ public enum PetType {
     CAT,
     RAT,
     OWL,
+    BEE,
     NONE
 }

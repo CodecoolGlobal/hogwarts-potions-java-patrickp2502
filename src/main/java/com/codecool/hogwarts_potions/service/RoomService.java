@@ -1,37 +1,48 @@
 package com.codecool.hogwarts_potions.service;
 
+import com.codecool.hogwarts_potions.dao.RoomRepository;
 import com.codecool.hogwarts_potions.model.Room;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class RoomService {
+    private final RoomRepository roomRepository;
 
     public List<Room> getAllRooms() {
-        //TODO
-        return null;
+
+        return roomRepository.findAll();
     }
 
     public void addRoom(Room room) {
-        //TODO
+        roomRepository.save(room);
     }
 
     public Room getRoomById(Long id) {
-        //TODO
-        return null;
+        Optional<Room> roomOptional = roomRepository.findById(id);
+        if (roomOptional.isEmpty()) {
+            return null;
+        }
+        return roomOptional.get();
     }
 
     public void updateRoomById(Long id, Room updatedRoom) {
-        //TODO
+       if (roomRepository.existsById(id)) {
+           updatedRoom.setId(id);
+           roomRepository.save(updatedRoom);
+       }
+
     }
 
     public void deleteRoomById(Long id) {
-        //TODO
+        roomRepository.deleteById(id);
     }
 
     public List<Room> getRoomsForRatOwners() {
-        //TODO
-        return null;
+        return roomRepository.findRoomForRatOwner();
     }
 }
