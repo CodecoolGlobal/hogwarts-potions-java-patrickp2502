@@ -31,10 +31,10 @@ public class RoomService {
     }
 
     public void updateRoomById(Long id, Room updatedRoom) {
-       if (roomRepository.existsById(id)) {
-           updatedRoom.setId(id);
-           roomRepository.save(updatedRoom);
-       }
+        if (roomRepository.existsById(id)) {
+            updatedRoom.setId(id);
+            roomRepository.save(updatedRoom);
+        }
 
     }
 
