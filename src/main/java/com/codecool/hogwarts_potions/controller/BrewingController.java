@@ -34,9 +34,9 @@ public class BrewingController {
     }
 
     @PostMapping("/potions/{potion-id}/add")
-    public Potion addIngredientToPotion(@PathVariable("potion-id") Long potionId,
-                                        @RequestParam("ingredient-name") String ingredientName) {
-        Optional<Potion> potion = brewingService.addIngredientToPotion(potionId, ingredientName);
+    public Potion brewPotion(@PathVariable("potion-id") Long potionId,
+                             @RequestParam("ingredient-name") String ingredientName) {
+        Optional<Potion> potion = brewingService.brewPotion(potionId, ingredientName);
         if (potion.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Potion not found by id = " + potionId);
         }

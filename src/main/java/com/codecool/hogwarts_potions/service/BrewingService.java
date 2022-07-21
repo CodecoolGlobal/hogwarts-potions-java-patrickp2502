@@ -5,6 +5,7 @@ import com.codecool.hogwarts_potions.dao.StudentRepository;
 import com.codecool.hogwarts_potions.model.Ingredient;
 import com.codecool.hogwarts_potions.model.Potion;
 import com.codecool.hogwarts_potions.model.Student;
+import com.codecool.hogwarts_potions.service.constants.BrewingServiceConstants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ public class BrewingService {
     private final StudentRepository studentRepository;
 
     private final IngredientService ingredientService;
+    private final RecipeService recipeService;
 
     public List<Potion> getAllPotions() {
         return potionRepository.findAll();
@@ -42,17 +44,29 @@ public class BrewingService {
      * @param ingredientName
      * @return empty if no potion is found
      */
-    public Optional<Potion> addIngredientToPotion(Long potionId, String ingredientName) {
+    public Optional<Potion> brewPotion(Long potionId, String ingredientName) {
         Optional<Potion> potionOptional = potionRepository.findById(potionId);
         if (potionOptional.isEmpty()) {
             return Optional.empty();
         }
 
         Ingredient ingredient = ingredientService.getIngredientBy(ingredientName);
-        List<Ingredient> potionsIngredientsList = potionOptional.get().getIngredientsList();
+        List<Ingredient> potionsIngredientsList = potionOptional.get().getIngredients();
         potionsIngredientsList.add(ingredient);
-
+        processBrewingStatus(potionOptional.get());
         return Optional.of(potionRepository.save(potionOptional.get()));
+    }
+
+    public void processBrewingStatus(Potion potion) {
+        List<Ingredient> ingredients = potion.getIngredients();
+        if (ingredients.size() < BrewingServiceConstants.MAX_INGREDIENTS_FOR_POTIONS) {
+            return;
+        }
+        
+
+
+
+
     }
 
 

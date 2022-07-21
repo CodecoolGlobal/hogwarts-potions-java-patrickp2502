@@ -14,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table
+@ToString
 public class Potion {
 
     @Id
@@ -24,8 +25,8 @@ public class Potion {
     private Student student;
     @Enumerated(value = EnumType.STRING)
     private BrewingStatus brewingStatus;
-    @ManyToMany
-    List<Ingredient> ingredientsList;
+    @OneToMany
+    List<Ingredient> ingredients;
 
 
 }
