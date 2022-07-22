@@ -19,14 +19,14 @@ public class Potion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
     private String name;
     @ManyToOne
     private Student student;
     @Enumerated(value = EnumType.STRING)
     private BrewingStatus brewingStatus;
-    @OneToMany
-    List<Ingredient> ingredients;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Ingredient> ingredients;
 
 
 }

@@ -3,6 +3,8 @@ package com.codecool.hogwarts_potions.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
+
 @Getter
 @Setter
 @Builder
@@ -10,11 +12,12 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table
+@ToString
 public class Ingredient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
     private String name;
 
 }

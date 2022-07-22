@@ -1,6 +1,7 @@
 package com.codecool.hogwarts_potions.model;
 
 import lombok.*;
+import org.hibernate.annotations.CollectionType;
 
 import javax.persistence.*;
 import java.util.List;
@@ -12,14 +13,16 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table
+@ToString
 public class Recipe {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long id;
+    private Long id;
     String name;
     @ManyToOne
     Student student;
-    @ManyToMany
-    List<Ingredient> ingredients;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Ingredient> ingredients;
 }

@@ -63,6 +63,12 @@ public class DataCreator {
         recipeRepository.save(Recipe.builder()
                 .ingredients(List.of(testIngredients.get(0), testIngredients.get(1))).build());
 
+
+        recipeRepository.save(Recipe.builder()
+                        .name("new")
+                        .ingredients(List.of(water, water, water))
+                .build());
+
     }
 
 

@@ -3,12 +3,15 @@ package com.codecool.hogwarts_potions.service;
 import com.codecool.hogwarts_potions.dao.IngredientRepository;
 import com.codecool.hogwarts_potions.model.Ingredient;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-@Service
+@Repository
 public class IngredientService {
 
     private final IngredientRepository ingredientRepository;
@@ -24,6 +27,12 @@ public class IngredientService {
             return createIngredient(name);
         }
         return ingredientOptional.get();
+    }
+
+    public List<Long> getIdsOfIngredients(List<Ingredient> ingredients) {
+        return ingredients.stream()
+                .map(Ingredient::getId)
+                .collect(Collectors.toList());
     }
 
 
